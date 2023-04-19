@@ -11,8 +11,10 @@
         </div>
     </a>
     <div class="col-9 search-div">
-        <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da tarefa para buscar">
-        <span><i class="fas fa-search" id="mexer"></i></span>
+        <form method="GET" id="search-form">
+            <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da tarefa para buscar" value="{{request.GET.search}}">
+            <span id="search-btn"><i class="fas fa-search" ></i></span>
+        </form>
     </div>
 
     {% if messages %}
@@ -24,13 +26,11 @@
             {% endfor %}
         </ul>
     {% endif %}
-
-
     <ul class="task-list">
         {% for task in tasks %}
         <li class="task-item">
             <span><a href="/task/{{task.id}}">{{task.title}}</a></span>
-            <a href="delete/{{task.id}}" class="delete-btnc"><span><i class="fas fa-trash"></i></span></a>
+            <a href="delete/{{task.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
             <a href="edit/{{task.id}}"><span><i class="fas fa-edit"></i></span></a>
         </li>
         {% endfor %}
@@ -41,9 +41,11 @@
                 <a href="?page={{ tasks.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
             {% endif %}
 
+            {% if tasks.paginator.num_pages %}
             <span class="current">
                 {{tasks.number}} de {{ tasks.paginator.num_pages}}
             </span>
+            {% endif %}
 
             {% if tasks.has_next %}
                 <a href="?page={{ tasks.next_page_number }}"><i class="fas fa-arrow-right"></i></a>

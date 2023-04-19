@@ -10,11 +10,19 @@ from django.contrib import messages
 def taskList(request):
     tasks_list = Task.objects.all().order_by('-create_at')
 
-    paginator = Paginator(tasks_list, 3) #definição de limites de objetos banco que serao exibidos
+    search = request.GET.get('search')
 
-    page = request.GET.get('page') #get da page atual
+    if search:
 
-    tasks = paginator.get_page(page)
+        tasks = Task.objects.filter(title__icontains = search)
+
+    else:
+
+        paginator = Paginator(tasks_list, 3) #definição de limites de objetos banco que serao exibidos
+
+        page = request.GET.get('page') #get da page atual
+
+        tasks = paginator.get_page(page)
 
     return render(request, 'tasks/list.html', {'tasks': tasks})
 

@@ -143,3 +143,9 @@ ul.messages{
     margin-left: 5px;
     margin-right: 5px;
 }
+
+/* Login */
+
+.auth-card{
+    margin-bottom:30px;
+}
