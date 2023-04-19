@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 from .models import Task
 from .forms import TaskForm
 from django.contrib import messages
@@ -7,7 +8,14 @@ from django.contrib import messages
 
 # Create your views here.
 def taskList(request):
-    tasks = Task.objects.all().order_by('-create_at')
+    tasks_list = Task.objects.all().order_by('-create_at')
+
+    paginator = Paginator(tasks_list, 3) #definição de limites de objetos banco que serao exibidos
+
+    page = request.GET.get('page') #get da page atual
+
+    tasks = paginator.get_page(page)
+
     return render(request, 'tasks/list.html', {'tasks': tasks})
 
 def taskView(request, id):
