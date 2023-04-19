@@ -1,43 +1,39 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}Lista de Tarefas{% endblock %}
 
 {% block content %}
 <div class ="offset-1 col-10 list-div">
     <h1>Lista de Tarefas</h1>
-    <div class="col-2 add-div">
-        <i class="fas fa-plus">Adicionar Tarefa</i>
-    </div>
+    <a id="add-link" href="newtask/">
+        <div class="col-2 add-div">
+            <i class="fas fa-plus"></i> Adicionar Tarefa
+        </div>
+    </a>
     <div class="col-9 search-div">
-        <input class="form-control" type="text" id="search" placeholder="Digite o nome da tarefa para buscar">
-        <i class="fa fa-search"></i>
+        <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da tarefa para buscar">
+        <span><i class="fas fa-search" id="mexer"></i></span>
     </div>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="alert alert-{{message.tags}}"{% endif %}>
+                    {{message}}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
     <ul class="task-list">
+        {% for task in tasks %}
         <li class="task-item">
-            <span>Titulo da Tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
+            <span><a href="/task/{{task.id}}">{{task.title}}</a></span>
+            <a href="delete/{{task.id}}"><span><i class="fas fa-trash"></i></span></a>
+            <a href="edit/{{task.id}}"><span><i class="fas fa-edit"></i></span></a>
         </li>
-        <li class="task-item">
-            <span>Titulo da Tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
-        </li>
-        <li class="task-item">
-            <span>Titulo da Tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
-        </li>
-        <li class="task-item">
-            <span>Titulo da Tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
-        </li>
-        <li class="task-item">
-            <span>Titulo da Tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
-        </li>
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}

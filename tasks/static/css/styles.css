@@ -24,6 +24,10 @@
 
 /* Botao de adicionar tarefas */
 
+#add-link{
+    text-decoration: none;
+}
+
 .add-div{
     background-color: #3476e2;
     cursor: pointer;
@@ -39,9 +43,19 @@
     font-style: normal;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 17px;
-    color: #fff
+    color: #fff;
     margin-right: 10px;
     margin-left: 5px;
+}
+
+
+/* Search */
+
+.fas.fa-search{
+    position: absolute;
+    top: 82px;
+    right: 80px;
+    cursor:pointer;
 }
 
 .search-div{
@@ -51,24 +65,18 @@
     display: inline-block;
 }
 
-/* Search */
-
-.fa.fa-search{
-    position: fixed;
-    right: 100px;
-    top: 151px;
-}
-
-
 /* Lista de tarefas */
 
 .list-div{
     padding: 0;
+    position: relative;
 }
 
 .task-list{
     padding-left: 0;
 }
+
+
 
 .task-item{
     list-style: none;
@@ -89,12 +97,7 @@
     color: #db1e47;
 }
 
-.fas.fa-edit{
-    color: #13c43f;
-}
-
 /* Rodapé */
-
 
 footer{
     background-color: #333;
@@ -109,3 +112,16 @@ footer p{
     position: relative;
 }
 
+/* Messages */
+
+ul.messages{
+    padding:0;
+}
+
+ul.messages{
+    list-style: none;
+}
+
+.task-item a{
+    text-decoration: none;
+}

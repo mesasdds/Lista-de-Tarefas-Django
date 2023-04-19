@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Editando '{{task.tilte}}'{% endblock %}
+
+{% block content %}
+<div class ="offset-1 col-10 list-div">
+  <h1>Editando '{{task.tilte}}'</h1>
+  <form method = "POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-primary" value="Editar Tarefa">
+  </form>
+</div>
+{% endblock %}
