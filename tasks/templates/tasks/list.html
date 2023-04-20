@@ -5,6 +5,25 @@
 {% block content %}
 <div class ="offset-1 col-10 list-div">
     <h1>Lista de Tarefas</h1>
+
+    <div class="container dashboard">
+        <div class="dashboard box col-4 " id="dashboard-lastdays">
+            <h4>Finalizado nos últimos 30 dias</h4>
+            <span>{{tasksrecently}}</span>
+        </div>
+
+        <div class="dashboard box col-4" id="dashboard-done">
+            <h4>Tarefas Finalizadas</h4>
+            <span>{{tasksDone}}</span>
+        </div>
+
+        <div class="dashboard box col-4 " id="dashboard-doing">
+            <h4>Tarefas para fazer</h4>
+            <span>{{tasksDoing}}</span>
+        </div>
+    </div>
+
+
     <a id="add-link" href="newtask/">
         <div class="col-2 add-div">
             <i class="fas fa-plus"></i> Adicionar Tarefa
@@ -15,6 +34,15 @@
             <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da tarefa para buscar" value="{{request.GET.search}}">
             <span id="search-btn"><i class="fas fa-search" ></i></span>
         </form>
+    </div>
+
+    <div class="col-12 filter-div">
+        <span>Filtrar por:</span>
+        <select name="filter" id="filter" class="form-control">
+            <option value="">Escolha um opção</option>
+            <option value="done">Tarefas concluidas</option>
+            <option value="doing">Terefas a fazer</option>
+        </select>
     </div>
 
     {% if messages %}

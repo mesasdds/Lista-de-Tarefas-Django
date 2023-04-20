@@ -5,23 +5,30 @@ from .models import Task
 from .forms import TaskForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+import datetime
 
 
 # Create your views here.
 @login_required
 def taskList(request):
-    tasks_list = Task.objects.all().order_by('-create_at')
 
     search = request.GET.get('search')
+    filter = request.GET.get('filter')
+    taskDoneRecently = Task.objects.filter(done='done', update_at__gt=datetime.datetime.now()-datetime.timedelta(days=30), user=request.user).count()
+    tasksDone = Task.objects.filter(done='done', user=request.user).count()
+    tasksDoing = Task.objects.filter(done='doing', user=request.user).count()
 
     if search:
 
-        tasks = Task.objects.filter(title__icontains = search, user=request.user)
+        tasks = Task.objects.filter(title__icontains=search, user=request.user)
+
+    elif filter:
+
+        tasks = Task.objects.filter(done=filter, user=request.user)
 
     else:
 
-        tasks_list = Task.objects.all().order_by('create_at').filter(user=request.user)
+        tasks_list = Task.objects.all().order_by('-create_at').filter(user=request.user)
 
         paginator = Paginator(tasks_list, 3) #definição de limites de objetos banco que serao exibidos
 
@@ -29,7 +36,7 @@ def taskList(request):
 
         tasks = paginator.get_page(page)
 
-    return render(request, 'tasks/list.html', {'tasks': tasks})
+    return render(request, 'tasks/list.html', {'tasks': tasks, 'tasksrecently':taskDoneRecently, 'tasksDone':tasksDone, 'tasksDoing':tasksDoing})
 @login_required
 def taskView(request, id):
     task = get_object_or_404(Task, pk=id)
