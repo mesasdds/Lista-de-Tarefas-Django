@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}Lista de Tarefas{% endblock %}
 
@@ -28,11 +28,16 @@
     {% endif %}
     <ul class="task-list">
         {% for task in tasks %}
-        <li class="task-item">
+        {% if task.done == 'doing' %}
+            <li class="task-item">
+        {% else %}
+            <li class="task-item done">
+        {% endif %}
             <span><a href="/task/{{task.id}}">{{task.title}}</a></span>
             <a href="delete/{{task.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
             <a href="edit/{{task.id}}"><span><i class="fas fa-edit"></i></span></a>
-        </li>
+            <a href="changestatus/{{task.id}}"><span><i class="fas fa-check"></i></span></a>
+            </li>
         {% endfor %}
     </ul>
     <div class="pagination">
